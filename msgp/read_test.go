@@ -939,6 +939,47 @@ func TestTime(t *testing.T) {
 	}
 }
 
+// TestReadTimeExtAcrossBufferBoundary decodes each msgpack timestamp width
+// (ts32, ts64, ts96) with its payload straddling the reader's refill
+// boundary. Before ReadTime used ReadFull, a payload split across the
+// boundary came back short and decoded as ErrShortBytes.
+func TestReadTimeExtAcrossBufferBoundary(t *testing.T) {
+	times := []time.Time{
+		time.Unix(1700000000, 0),   // ts32
+		time.Unix(1700000000, 500), // ts64
+		time.Unix(-1, 500),         // ts96
+		time.Time{},                // ts96 (zero time)
+	}
+	const size = 64
+	for _, want := range times {
+		for pad := size - 16; pad < size; pad++ {
+			var buf bytes.Buffer
+			en := NewWriter(&buf)
+			if err := en.WriteBytes(make([]byte, pad-2)); err != nil { // bin8 header + payload = pad
+				t.Fatal(err)
+			}
+			if err := en.WriteTimeExt(want); err != nil {
+				t.Fatal(err)
+			}
+			if err := en.Flush(); err != nil {
+				t.Fatal(err)
+			}
+			dc := NewReaderSize(bytes.NewReader(buf.Bytes()), size)
+			if _, err := dc.ReadBytes(nil); err != nil {
+				t.Fatal(err)
+			}
+			got, err := dc.ReadTimeUTC()
+			if err != nil {
+				t.Errorf("%v at offset %d: %v", want, pad, err)
+				continue
+			}
+			if !got.Equal(want) {
+				t.Errorf("%v at offset %d: got %v", want, pad, got)
+			}
+		}
+	}
+}
+
 func BenchmarkReadTime(b *testing.B) {
 	t := time.Now()
 	data := AppendTime(nil, t)
