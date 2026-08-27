@@ -898,7 +898,10 @@ func GuessSize(i any) int {
 }
 
 // Temporary buffer for reading/writing binary data.
-var bytesPool = sync.Pool{New: func() any { return make([]byte, 0, 1024) }}
+var bytesPool = sync.Pool{New: func() any {
+	b := make([]byte, 0, 1024)
+	return &b
+}}
 
 // WriteBinaryAppender will write the bytes from the given
 // encoding.BinaryAppender as a bin array.
@@ -908,13 +911,13 @@ func (mw *Writer) WriteBinaryAppender(b encoding.BinaryAppender) (err error) {
 			err = fmt.Errorf("msgp: panic during AppendBinary: %v", r)
 		}
 	}()
-	dst := bytesPool.Get().([]byte)
-	defer bytesPool.Put(dst) //nolint:staticcheck
-	dst, err = b.AppendBinary(dst[:0])
+	dst := bytesPool.Get().(*[]byte)
+	defer bytesPool.Put(dst)
+	*dst, err = b.AppendBinary((*dst)[:0])
 	if err != nil {
 		return err
 	}
-	return mw.WriteBytes(dst)
+	return mw.WriteBytes(*dst)
 }
 
 // WriteTextAppender will write the bytes from the given
@@ -925,13 +928,13 @@ func (mw *Writer) WriteTextAppender(b encoding.TextAppender) (err error) {
 			err = fmt.Errorf("msgp: panic during AppendText: %v", r)
 		}
 	}()
-	dst := bytesPool.Get().([]byte)
-	defer bytesPool.Put(dst) //nolint:staticcheck
-	dst, err = b.AppendText(dst[:0])
+	dst := bytesPool.Get().(*[]byte)
+	defer bytesPool.Put(dst)
+	*dst, err = b.AppendText((*dst)[:0])
 	if err != nil {
 		return err
 	}
-	return mw.WriteBytes(dst)
+	return mw.WriteBytes(*dst)
 }
 
 // WriteTextAppenderString will write the bytes from the given
@@ -942,11 +945,11 @@ func (mw *Writer) WriteTextAppenderString(b encoding.TextAppender) (err error) {
 			err = fmt.Errorf("msgp: panic during AppendText: %v", r)
 		}
 	}()
-	dst := bytesPool.Get().([]byte)
-	defer bytesPool.Put(dst) //nolint:staticcheck
-	dst, err = b.AppendText(dst[:0])
+	dst := bytesPool.Get().(*[]byte)
+	defer bytesPool.Put(dst)
+	*dst, err = b.AppendText((*dst)[:0])
 	if err != nil {
 		return err
 	}
-	return mw.WriteStringFromBytes(dst)
+	return mw.WriteStringFromBytes(*dst)
 }
