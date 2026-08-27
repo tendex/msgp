@@ -1435,13 +1435,8 @@ func (m *Reader) ReadTime() (t time.Time, err error) {
 			if err != nil {
 				return
 			}
-			var n int
-			n, err = m.R.Read(tmp[:length])
+			_, err = m.R.ReadFull(tmp[:length])
 			if err != nil {
-				return
-			}
-			if n != length {
-				err = ErrShortBytes
 				return
 			}
 			b := tmp[:length]

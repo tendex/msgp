@@ -954,6 +954,40 @@ func BenchmarkReadTime(b *testing.B) {
 	}
 }
 
+// nopTimer satisfies the timer interface required by
+// NewEndlessReader so it can be used outside benchmarks.
+type nopTimer struct{}
+
+func (nopTimer) StartTimer() {}
+func (nopTimer) StopTimer()  {}
+
+func TestReadTimeExtBufferBoundary(t *testing.T) {
+	// ReadTime used a bare Read for the msgpack timestamp payload;
+	// when the buffered reader's fill boundary landed inside the
+	// payload, the resulting legal short read was misreported as
+	// ErrShortBytes.
+	times := []time.Time{
+		time.Unix(1234567890, 0),         // 4-byte payload
+		time.Unix(1234567890, 123456789), // 8-byte payload
+		time.Unix(1<<34, 123456789),      // 12-byte payload
+	}
+	for _, want := range times {
+		data := AppendTimeExt(nil, want)
+		rd := NewReader(NewEndlessReader(data, nopTimer{}))
+		// enough iterations to cross the reader's internal
+		// buffer boundary several times for any payload length
+		for i := 0; i < 2048; i++ {
+			got, err := rd.ReadTime()
+			if err != nil {
+				t.Fatalf("payload length %d: iteration %d: %v", len(data), i, err)
+			}
+			if !got.Equal(want) {
+				t.Fatalf("payload length %d: iteration %d: %s in; %s out", len(data), i, want, got)
+			}
+		}
+	}
+}
+
 func TestSkip(t *testing.T) {
 	var buf bytes.Buffer
 	wr := NewWriter(&buf)
