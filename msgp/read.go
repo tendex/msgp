@@ -1435,8 +1435,14 @@ func (m *Reader) ReadTime() (t time.Time, err error) {
 			if err != nil {
 				return
 			}
+			// ReadFull, not Read: the buffered reader hands back only
+			// what it has buffered, so a single Read comes up short
+			// whenever the payload straddles its refill boundary.
 			_, err = m.R.ReadFull(tmp[:length])
 			if err != nil {
+				if err == io.ErrUnexpectedEOF {
+					err = ErrShortBytes
+				}
 				return
 			}
 			b := tmp[:length]
