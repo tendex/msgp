@@ -255,8 +255,7 @@ func BenchmarkWriteFloat64(b *testing.B) {
 	wr := NewWriter(Nowhere)
 	b.SetBytes(9)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		wr.WriteFloat64(f)
 	}
 }
@@ -290,8 +289,7 @@ func BenchmarkWriteFloat32(b *testing.B) {
 	wr := NewWriter(Nowhere)
 	b.SetBytes(5)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		wr.WriteFloat32(f)
 	}
 }
@@ -324,8 +322,7 @@ func BenchmarkWriteInt64(b *testing.B) {
 	wr := NewWriter(Nowhere)
 	b.SetBytes(9)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		wr.WriteInt64(tint64)
 	}
 }
@@ -357,8 +354,7 @@ func BenchmarkWriteUint64(b *testing.B) {
 	wr := NewWriter(Nowhere)
 	b.SetBytes(9)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		wr.WriteUint64(tuint64)
 	}
 }
@@ -392,8 +388,7 @@ func benchwrBytes(size uint32, b *testing.B) {
 	bts := RandBytes(int(size))
 	wr := NewWriter(Nowhere)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		wr.WriteBytes(bts)
 	}
 }
@@ -434,8 +429,7 @@ func BenchmarkWriteTime(b *testing.B) {
 	wr := NewWriter(Nowhere)
 	b.SetBytes(15)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		wr.WriteTime(t)
 	}
 }

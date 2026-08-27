@@ -197,8 +197,7 @@ func BenchmarkAppendFloat(b *testing.B) {
 	buf := make([]byte, 0, 9)
 	b.SetBytes(8)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for i := 0; b.Loop(); i++ {
 		AppendFloat(buf, src[i&(n-1)])
 	}
 }
@@ -222,8 +221,7 @@ func BenchmarkAppendFloat64(b *testing.B) {
 	buf := make([]byte, 0, 9)
 	b.SetBytes(9)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		AppendFloat64(buf[0:0], f)
 	}
 }
@@ -247,8 +245,7 @@ func BenchmarkAppendFloat32(b *testing.B) {
 	buf := make([]byte, 0, 5)
 	b.SetBytes(5)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		AppendFloat32(buf[0:0], f)
 	}
 }
@@ -275,8 +272,7 @@ func BenchmarkAppendInt64(b *testing.B) {
 	l := len(is)
 	buf := make([]byte, 0, 9)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for i := 0; b.Loop(); i++ {
 		AppendInt64(buf[0:0], is[i%l])
 	}
 }
@@ -302,9 +298,8 @@ func BenchmarkAppendUint64(b *testing.B) {
 	us := []uint64{0, 1, 15, uint64(tuint16), uint64(tuint32), tuint64}
 	buf := make([]byte, 0, 9)
 	b.ReportAllocs()
-	b.ResetTimer()
 	l := len(us)
-	for i := 0; i < b.N; i++ {
+	for i := 0; b.Loop(); i++ {
 		AppendUint64(buf[0:0], us[i%l])
 	}
 }
@@ -332,8 +327,7 @@ func benchappendBytes(size uint32, b *testing.B) {
 	buf := make([]byte, 0, len(bts)+5)
 	b.SetBytes(int64(len(bts) + 5))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		AppendBytes(buf[0:0], bts)
 	}
 }
@@ -369,8 +363,7 @@ func benchappendString(size uint32, b *testing.B) {
 	buf := make([]byte, 0, len(str)+5)
 	b.SetBytes(int64(len(str) + 5))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		AppendString(buf[0:0], str)
 	}
 }
@@ -403,8 +396,7 @@ func BenchmarkAppendBool(b *testing.B) {
 	buf := make([]byte, 0, 1)
 	b.SetBytes(1)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for i := 0; b.Loop(); i++ {
 		AppendBool(buf[0:0], vs[i%2])
 	}
 }
@@ -414,8 +406,7 @@ func BenchmarkAppendTime(b *testing.B) {
 	b.SetBytes(15)
 	buf := make([]byte, 0, 15)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		AppendTime(buf[0:0], t)
 	}
 }
@@ -424,8 +415,7 @@ func BenchmarkAppendTimeExt(b *testing.B) {
 	t := time.Now()
 	buf := make([]byte, 0, 15)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		AppendTimeExt(buf[0:0], t)
 	}
 }

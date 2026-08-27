@@ -565,8 +565,7 @@ func Benchmark{{.TypeName}}_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -591,8 +590,7 @@ func Benchmark{{.TypeName}}_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded {{.TypeName}}
 				decoded.DecodeMsg(reader)
@@ -610,8 +608,7 @@ func Benchmark{{.TypeName}}_MarshalMsg(b *testing.B) {
 			{{.GeneratePopulateCode}}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -632,8 +629,7 @@ func Benchmark{{.TypeName}}_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded {{.TypeName}}
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -653,8 +649,7 @@ func Benchmark{{.TypeName}}_AsSlice(b *testing.B) {
 			{{.GeneratePopulateCode}}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -669,8 +664,7 @@ func Benchmark{{.TypeName}}_FromSlice(b *testing.B) {
 			{{.GenerateSliceCode}}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = {{.TypeName}}FromSlice(slice)
 			}
 		})
@@ -686,8 +680,7 @@ func Benchmark{{.TypeName}}_MarshalJSON(b *testing.B) {
 			{{.GeneratePopulateCode}}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -708,8 +701,7 @@ func Benchmark{{.TypeName}}_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded {{.TypeName}}
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {

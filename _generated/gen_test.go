@@ -26,8 +26,7 @@ func BenchmarkFastEncode(b *testing.B) {
 	en := msgp.NewWriter(msgp.Nowhere)
 	b.SetBytes(int64(buf.Len()))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		v.EncodeMsg(en)
 	}
 	en.Flush()
@@ -51,8 +50,7 @@ func BenchmarkFastDecode(b *testing.B) {
 	dc := msgp.NewReader(msgp.NewEndlessReader(buf.Bytes(), b))
 	b.SetBytes(int64(buf.Len()))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		v.DecodeMsg(dc)
 	}
 }

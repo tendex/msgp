@@ -44,9 +44,8 @@ func BenchmarkReadMapHeaderBytes(b *testing.B) {
 	}
 	b.SetBytes(int64(len(buf) / len(sizes)))
 	b.ReportAllocs()
-	b.ResetTimer()
 	o := buf
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, buf, _ = ReadMapHeaderBytes(buf)
 		if len(buf) == 0 {
 			buf = o
@@ -88,9 +87,8 @@ func BenchmarkReadArrayHeaderBytes(b *testing.B) {
 	}
 	b.SetBytes(int64(len(buf) / len(sizes)))
 	b.ReportAllocs()
-	b.ResetTimer()
 	o := buf
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, buf, _ = ReadArrayHeaderBytes(buf)
 		if len(buf) == 0 {
 			buf = o
@@ -132,9 +130,8 @@ func BenchmarkTestReadBytesHeader(b *testing.B) {
 	}
 	b.SetBytes(int64(len(buf) / len(sizes)))
 	b.ReportAllocs()
-	b.ResetTimer()
 	o := buf
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, buf, _ = ReadBytesHeader(buf)
 		if len(buf) == 0 {
 			buf = o
@@ -161,8 +158,7 @@ func BenchmarkReadNilByte(b *testing.B) {
 	buf := []byte{mnil}
 	b.SetBytes(1)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		ReadNilBytes(buf)
 	}
 }
@@ -191,8 +187,7 @@ func BenchmarkReadFloat64Bytes(b *testing.B) {
 	buf = AppendFloat64(buf, f)
 	b.SetBytes(int64(len(buf)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		ReadFloat64Bytes(buf)
 	}
 }
@@ -221,8 +216,7 @@ func BenchmarkReadFloat32Bytes(b *testing.B) {
 	buf = AppendFloat32(buf, f)
 	b.SetBytes(int64(len(buf)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		ReadFloat32Bytes(buf)
 	}
 }
@@ -256,9 +250,8 @@ func BenchmarkReadBoolBytes(b *testing.B) {
 	buf := []byte{mtrue, mfalse, mtrue, mfalse}
 	b.SetBytes(1)
 	b.ReportAllocs()
-	b.ResetTimer()
 	o := buf
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, buf, _ = ReadBoolBytes(buf)
 		if len(buf) == 0 {
 			buf = o
@@ -683,8 +676,7 @@ func BenchmarkReadTimeBytes(b *testing.B) {
 	data := AppendTime(nil, time.Now())
 	b.SetBytes(15)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		ReadTimeBytes(data)
 	}
 }
@@ -751,8 +743,7 @@ func BenchmarkSkipBytes(b *testing.B) {
 	bts := buf.Bytes()
 	b.SetBytes(int64(len(bts)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := Skip(bts)
 		if err != nil {
 			b.Fatal(err)

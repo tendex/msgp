@@ -160,7 +160,7 @@ func BenchmarkExtensionReadWrite(b *testing.B) {
 	b.Run("interface", func(b *testing.B) {
 		b.ReportAllocs()
 
-		for i := 0; i < b.N; i++ {
+		for b.Loop() {
 			buf.Reset()
 
 			e := randomExt()
@@ -181,7 +181,7 @@ func BenchmarkExtensionReadWrite(b *testing.B) {
 		// this should have zero allocations
 		b.ReportAllocs()
 
-		for i := 0; i < b.N; i++ {
+		for b.Loop() {
 			buf.Reset()
 
 			e := randomExt()
