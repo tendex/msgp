@@ -973,6 +973,29 @@ func TestReadTimeExtBufferBoundary(t *testing.T) {
 	}
 }
 
+func TestReadTimeExtTruncated(t *testing.T) {
+	// A payload cut short by EOF (as opposed to the legal short read at a
+	// refill boundary above) must surface as ErrShortBytes, the package's
+	// truncation error, not the raw io.ErrUnexpectedEOF from ReadFull.
+	cases := []struct {
+		t       time.Time
+		payload int
+	}{
+		{time.Unix(1234567890, 0), 4},
+		{time.Unix(1234567890, 123456789), 8},
+		{time.Unix(1<<34, 123456789), 12},
+	}
+	for _, c := range cases {
+		data := AppendTimeExt(nil, c.t)
+		for cut := len(data) - c.payload + 1; cut < len(data); cut++ {
+			rd := NewReader(bytes.NewReader(data[:cut]))
+			if _, err := rd.ReadTime(); err != ErrShortBytes {
+				t.Fatalf("payload length %d cut at %d: got %v; want ErrShortBytes", c.payload, cut, err)
+			}
+		}
+	}
+}
+
 func TestSkip(t *testing.T) {
 	var buf bytes.Buffer
 	wr := NewWriter(&buf)
