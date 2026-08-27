@@ -188,6 +188,10 @@ func goGenerate(t *testing.T, dir string) {
 func tinygoBuild(t *testing.T, dir string, targets ...string) {
 	t.Helper()
 
+	if _, err := exec.LookPath("tinygo"); err != nil {
+		t.Skipf("skipping because tinygo is not installed: %v", err)
+	}
+
 	wd, err := os.Getwd()
 	if err != nil {
 		t.Fatal(err)
