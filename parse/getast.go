@@ -1,3 +1,6 @@
+// Package parse locates and parses the Go type definitions that the
+// msgp tool generates code for, translating them into the element
+// tree consumed by the gen package.
 package parse
 
 import (

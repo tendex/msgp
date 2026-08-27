@@ -62,7 +62,7 @@ func randIdent() string {
 // 	},
 // }
 
-// Base is one of the
+// Primitive is one of the
 // base types
 type Primitive uint8
 
@@ -742,7 +742,7 @@ func (s *BaseElem) TypeName() string {
 	return s.typeNameWithParams(s.alias)
 }
 
-// ToBase, used if Convert==true, is used as tmp = {{ToBase}}({{Varname}})
+// ToBase returns the name used as tmp = {{ToBase}}({{Varname}}) if Convert==true.
 func (s *BaseElem) ToBase() string {
 	if s.ShimToBase != "" {
 		return s.ShimToBase
@@ -750,7 +750,7 @@ func (s *BaseElem) ToBase() string {
 	return s.BaseType()
 }
 
-// FromBase, used if Convert==true, is used as {{Varname}} = {{FromBase}}(tmp)
+// FromBase returns the name used as {{Varname}} = {{FromBase}}(tmp) if Convert==true.
 func (s *BaseElem) FromBase() string {
 	if s.ShimFromBase != "" {
 		return s.ShimFromBase
