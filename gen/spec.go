@@ -1,3 +1,6 @@
+// Package gen implements the code generation backend of the msgp tool:
+// it emits MessagePack encode, decode, marshal, unmarshal, and size
+// methods for the Go types described by the parse package.
 package gen
 
 import (

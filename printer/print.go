@@ -1,3 +1,5 @@
+// Package printer writes the methods produced by the gen package
+// out to formatted Go source files.
 package printer
 
 import (
