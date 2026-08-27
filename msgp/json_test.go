@@ -161,9 +161,8 @@ func BenchmarkCopyToJSON(b *testing.B) {
 		b.Fatal(err)
 	}
 	b.SetBytes(int64(len(js.Bytes())))
-	b.ResetTimer()
 	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		js.Reset()
 		CopyToJSON(&js, bytes.NewReader(bts))
 	}
@@ -191,9 +190,8 @@ func BenchmarkStdlibJSON(b *testing.B) {
 		b.Fatal(err)
 	}
 	b.SetBytes(int64(len(js.Bytes())))
-	b.ResetTimer()
 	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		js.Reset()
 		json.NewEncoder(&js).Encode(&obj)
 	}

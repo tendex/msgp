@@ -192,8 +192,7 @@ func BenchmarkLocate(b *testing.B) {
 	field := Locate("thing_three", raw)
 	b.SetBytes(int64(len(raw) - len(field)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		Locate("thing_three", raw)
 	}
 }

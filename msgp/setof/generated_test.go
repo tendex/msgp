@@ -583,8 +583,7 @@ func BenchmarkString_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -611,8 +610,7 @@ func BenchmarkString_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded String
 				decoded.DecodeMsg(reader)
@@ -632,8 +630,7 @@ func BenchmarkString_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -656,8 +653,7 @@ func BenchmarkString_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded String
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -679,8 +675,7 @@ func BenchmarkString_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -698,8 +693,7 @@ func BenchmarkString_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = StringFromSlice(slice)
 			}
 		})
@@ -717,8 +711,7 @@ func BenchmarkString_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -741,8 +734,7 @@ func BenchmarkString_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded String
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -767,8 +759,7 @@ func BenchmarkStringSorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -795,8 +786,7 @@ func BenchmarkStringSorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded StringSorted
 				decoded.DecodeMsg(reader)
@@ -816,8 +806,7 @@ func BenchmarkStringSorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -840,8 +829,7 @@ func BenchmarkStringSorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded StringSorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -863,8 +851,7 @@ func BenchmarkStringSorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -882,8 +869,7 @@ func BenchmarkStringSorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = StringSortedFromSlice(slice)
 			}
 		})
@@ -901,8 +887,7 @@ func BenchmarkStringSorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -925,8 +910,7 @@ func BenchmarkStringSorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded StringSorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -1509,8 +1493,7 @@ func BenchmarkInt_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -1537,8 +1520,7 @@ func BenchmarkInt_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Int
 				decoded.DecodeMsg(reader)
@@ -1558,8 +1540,7 @@ func BenchmarkInt_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -1582,8 +1563,7 @@ func BenchmarkInt_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -1605,8 +1585,7 @@ func BenchmarkInt_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -1624,8 +1603,7 @@ func BenchmarkInt_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = IntFromSlice(slice)
 			}
 		})
@@ -1643,8 +1621,7 @@ func BenchmarkInt_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -1667,8 +1644,7 @@ func BenchmarkInt_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -1693,8 +1669,7 @@ func BenchmarkIntSorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -1721,8 +1696,7 @@ func BenchmarkIntSorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded IntSorted
 				decoded.DecodeMsg(reader)
@@ -1742,8 +1716,7 @@ func BenchmarkIntSorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -1766,8 +1739,7 @@ func BenchmarkIntSorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded IntSorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -1789,8 +1761,7 @@ func BenchmarkIntSorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -1808,8 +1779,7 @@ func BenchmarkIntSorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = IntSortedFromSlice(slice)
 			}
 		})
@@ -1827,8 +1797,7 @@ func BenchmarkIntSorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -1851,8 +1820,7 @@ func BenchmarkIntSorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded IntSorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -2435,8 +2403,7 @@ func BenchmarkUint_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -2463,8 +2430,7 @@ func BenchmarkUint_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Uint
 				decoded.DecodeMsg(reader)
@@ -2484,8 +2450,7 @@ func BenchmarkUint_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -2508,8 +2473,7 @@ func BenchmarkUint_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -2531,8 +2495,7 @@ func BenchmarkUint_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -2550,8 +2513,7 @@ func BenchmarkUint_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = UintFromSlice(slice)
 			}
 		})
@@ -2569,8 +2531,7 @@ func BenchmarkUint_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -2593,8 +2554,7 @@ func BenchmarkUint_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -2619,8 +2579,7 @@ func BenchmarkUintSorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -2647,8 +2606,7 @@ func BenchmarkUintSorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded UintSorted
 				decoded.DecodeMsg(reader)
@@ -2668,8 +2626,7 @@ func BenchmarkUintSorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -2692,8 +2649,7 @@ func BenchmarkUintSorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded UintSorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -2715,8 +2671,7 @@ func BenchmarkUintSorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -2734,8 +2689,7 @@ func BenchmarkUintSorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = UintSortedFromSlice(slice)
 			}
 		})
@@ -2753,8 +2707,7 @@ func BenchmarkUintSorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -2777,8 +2730,7 @@ func BenchmarkUintSorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded UintSorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -3361,8 +3313,7 @@ func BenchmarkByte_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -3389,8 +3340,7 @@ func BenchmarkByte_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Byte
 				decoded.DecodeMsg(reader)
@@ -3410,8 +3360,7 @@ func BenchmarkByte_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -3434,8 +3383,7 @@ func BenchmarkByte_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Byte
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -3457,8 +3405,7 @@ func BenchmarkByte_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -3476,8 +3423,7 @@ func BenchmarkByte_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = ByteFromSlice(slice)
 			}
 		})
@@ -3495,8 +3441,7 @@ func BenchmarkByte_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -3519,8 +3464,7 @@ func BenchmarkByte_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Byte
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -3545,8 +3489,7 @@ func BenchmarkByteSorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -3573,8 +3516,7 @@ func BenchmarkByteSorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded ByteSorted
 				decoded.DecodeMsg(reader)
@@ -3594,8 +3536,7 @@ func BenchmarkByteSorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -3618,8 +3559,7 @@ func BenchmarkByteSorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded ByteSorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -3641,8 +3581,7 @@ func BenchmarkByteSorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -3660,8 +3599,7 @@ func BenchmarkByteSorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = ByteSortedFromSlice(slice)
 			}
 		})
@@ -3679,8 +3617,7 @@ func BenchmarkByteSorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -3703,8 +3640,7 @@ func BenchmarkByteSorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded ByteSorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -4287,8 +4223,7 @@ func BenchmarkInt8_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -4315,8 +4250,7 @@ func BenchmarkInt8_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Int8
 				decoded.DecodeMsg(reader)
@@ -4336,8 +4270,7 @@ func BenchmarkInt8_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -4360,8 +4293,7 @@ func BenchmarkInt8_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int8
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -4383,8 +4315,7 @@ func BenchmarkInt8_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -4402,8 +4333,7 @@ func BenchmarkInt8_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Int8FromSlice(slice)
 			}
 		})
@@ -4421,8 +4351,7 @@ func BenchmarkInt8_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -4445,8 +4374,7 @@ func BenchmarkInt8_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int8
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -4471,8 +4399,7 @@ func BenchmarkInt8Sorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -4499,8 +4426,7 @@ func BenchmarkInt8Sorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Int8Sorted
 				decoded.DecodeMsg(reader)
@@ -4520,8 +4446,7 @@ func BenchmarkInt8Sorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -4544,8 +4469,7 @@ func BenchmarkInt8Sorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int8Sorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -4567,8 +4491,7 @@ func BenchmarkInt8Sorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -4586,8 +4509,7 @@ func BenchmarkInt8Sorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Int8SortedFromSlice(slice)
 			}
 		})
@@ -4605,8 +4527,7 @@ func BenchmarkInt8Sorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -4629,8 +4550,7 @@ func BenchmarkInt8Sorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int8Sorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -5213,8 +5133,7 @@ func BenchmarkUint8_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -5241,8 +5160,7 @@ func BenchmarkUint8_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Uint8
 				decoded.DecodeMsg(reader)
@@ -5262,8 +5180,7 @@ func BenchmarkUint8_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -5286,8 +5203,7 @@ func BenchmarkUint8_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint8
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -5309,8 +5225,7 @@ func BenchmarkUint8_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -5328,8 +5243,7 @@ func BenchmarkUint8_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Uint8FromSlice(slice)
 			}
 		})
@@ -5347,8 +5261,7 @@ func BenchmarkUint8_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -5371,8 +5284,7 @@ func BenchmarkUint8_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint8
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -5397,8 +5309,7 @@ func BenchmarkUint8Sorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -5425,8 +5336,7 @@ func BenchmarkUint8Sorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Uint8Sorted
 				decoded.DecodeMsg(reader)
@@ -5446,8 +5356,7 @@ func BenchmarkUint8Sorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -5470,8 +5379,7 @@ func BenchmarkUint8Sorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint8Sorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -5493,8 +5401,7 @@ func BenchmarkUint8Sorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -5512,8 +5419,7 @@ func BenchmarkUint8Sorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Uint8SortedFromSlice(slice)
 			}
 		})
@@ -5531,8 +5437,7 @@ func BenchmarkUint8Sorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -5555,8 +5460,7 @@ func BenchmarkUint8Sorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint8Sorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -6139,8 +6043,7 @@ func BenchmarkInt16_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -6167,8 +6070,7 @@ func BenchmarkInt16_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Int16
 				decoded.DecodeMsg(reader)
@@ -6188,8 +6090,7 @@ func BenchmarkInt16_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -6212,8 +6113,7 @@ func BenchmarkInt16_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int16
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -6235,8 +6135,7 @@ func BenchmarkInt16_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -6254,8 +6153,7 @@ func BenchmarkInt16_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Int16FromSlice(slice)
 			}
 		})
@@ -6273,8 +6171,7 @@ func BenchmarkInt16_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -6297,8 +6194,7 @@ func BenchmarkInt16_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int16
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -6323,8 +6219,7 @@ func BenchmarkInt16Sorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -6351,8 +6246,7 @@ func BenchmarkInt16Sorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Int16Sorted
 				decoded.DecodeMsg(reader)
@@ -6372,8 +6266,7 @@ func BenchmarkInt16Sorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -6396,8 +6289,7 @@ func BenchmarkInt16Sorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int16Sorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -6419,8 +6311,7 @@ func BenchmarkInt16Sorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -6438,8 +6329,7 @@ func BenchmarkInt16Sorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Int16SortedFromSlice(slice)
 			}
 		})
@@ -6457,8 +6347,7 @@ func BenchmarkInt16Sorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -6481,8 +6370,7 @@ func BenchmarkInt16Sorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int16Sorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -7065,8 +6953,7 @@ func BenchmarkUint16_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -7093,8 +6980,7 @@ func BenchmarkUint16_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Uint16
 				decoded.DecodeMsg(reader)
@@ -7114,8 +7000,7 @@ func BenchmarkUint16_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -7138,8 +7023,7 @@ func BenchmarkUint16_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint16
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -7161,8 +7045,7 @@ func BenchmarkUint16_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -7180,8 +7063,7 @@ func BenchmarkUint16_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Uint16FromSlice(slice)
 			}
 		})
@@ -7199,8 +7081,7 @@ func BenchmarkUint16_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -7223,8 +7104,7 @@ func BenchmarkUint16_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint16
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -7249,8 +7129,7 @@ func BenchmarkUint16Sorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -7277,8 +7156,7 @@ func BenchmarkUint16Sorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Uint16Sorted
 				decoded.DecodeMsg(reader)
@@ -7298,8 +7176,7 @@ func BenchmarkUint16Sorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -7322,8 +7199,7 @@ func BenchmarkUint16Sorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint16Sorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -7345,8 +7221,7 @@ func BenchmarkUint16Sorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -7364,8 +7239,7 @@ func BenchmarkUint16Sorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Uint16SortedFromSlice(slice)
 			}
 		})
@@ -7383,8 +7257,7 @@ func BenchmarkUint16Sorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -7407,8 +7280,7 @@ func BenchmarkUint16Sorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint16Sorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -7991,8 +7863,7 @@ func BenchmarkInt32_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -8019,8 +7890,7 @@ func BenchmarkInt32_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Int32
 				decoded.DecodeMsg(reader)
@@ -8040,8 +7910,7 @@ func BenchmarkInt32_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -8064,8 +7933,7 @@ func BenchmarkInt32_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int32
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -8087,8 +7955,7 @@ func BenchmarkInt32_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -8106,8 +7973,7 @@ func BenchmarkInt32_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Int32FromSlice(slice)
 			}
 		})
@@ -8125,8 +7991,7 @@ func BenchmarkInt32_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -8149,8 +8014,7 @@ func BenchmarkInt32_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int32
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -8175,8 +8039,7 @@ func BenchmarkInt32Sorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -8203,8 +8066,7 @@ func BenchmarkInt32Sorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Int32Sorted
 				decoded.DecodeMsg(reader)
@@ -8224,8 +8086,7 @@ func BenchmarkInt32Sorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -8248,8 +8109,7 @@ func BenchmarkInt32Sorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int32Sorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -8271,8 +8131,7 @@ func BenchmarkInt32Sorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -8290,8 +8149,7 @@ func BenchmarkInt32Sorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Int32SortedFromSlice(slice)
 			}
 		})
@@ -8309,8 +8167,7 @@ func BenchmarkInt32Sorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -8333,8 +8190,7 @@ func BenchmarkInt32Sorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int32Sorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -8917,8 +8773,7 @@ func BenchmarkUint32_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -8945,8 +8800,7 @@ func BenchmarkUint32_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Uint32
 				decoded.DecodeMsg(reader)
@@ -8966,8 +8820,7 @@ func BenchmarkUint32_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -8990,8 +8843,7 @@ func BenchmarkUint32_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint32
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -9013,8 +8865,7 @@ func BenchmarkUint32_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -9032,8 +8883,7 @@ func BenchmarkUint32_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Uint32FromSlice(slice)
 			}
 		})
@@ -9051,8 +8901,7 @@ func BenchmarkUint32_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -9075,8 +8924,7 @@ func BenchmarkUint32_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint32
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -9101,8 +8949,7 @@ func BenchmarkUint32Sorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -9129,8 +8976,7 @@ func BenchmarkUint32Sorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Uint32Sorted
 				decoded.DecodeMsg(reader)
@@ -9150,8 +8996,7 @@ func BenchmarkUint32Sorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -9174,8 +9019,7 @@ func BenchmarkUint32Sorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint32Sorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -9197,8 +9041,7 @@ func BenchmarkUint32Sorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -9216,8 +9059,7 @@ func BenchmarkUint32Sorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Uint32SortedFromSlice(slice)
 			}
 		})
@@ -9235,8 +9077,7 @@ func BenchmarkUint32Sorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -9259,8 +9100,7 @@ func BenchmarkUint32Sorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint32Sorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -9843,8 +9683,7 @@ func BenchmarkInt64_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -9871,8 +9710,7 @@ func BenchmarkInt64_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Int64
 				decoded.DecodeMsg(reader)
@@ -9892,8 +9730,7 @@ func BenchmarkInt64_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -9916,8 +9753,7 @@ func BenchmarkInt64_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int64
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -9939,8 +9775,7 @@ func BenchmarkInt64_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -9958,8 +9793,7 @@ func BenchmarkInt64_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Int64FromSlice(slice)
 			}
 		})
@@ -9977,8 +9811,7 @@ func BenchmarkInt64_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -10001,8 +9834,7 @@ func BenchmarkInt64_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int64
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -10027,8 +9859,7 @@ func BenchmarkInt64Sorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -10055,8 +9886,7 @@ func BenchmarkInt64Sorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Int64Sorted
 				decoded.DecodeMsg(reader)
@@ -10076,8 +9906,7 @@ func BenchmarkInt64Sorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -10100,8 +9929,7 @@ func BenchmarkInt64Sorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int64Sorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -10123,8 +9951,7 @@ func BenchmarkInt64Sorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -10142,8 +9969,7 @@ func BenchmarkInt64Sorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Int64SortedFromSlice(slice)
 			}
 		})
@@ -10161,8 +9987,7 @@ func BenchmarkInt64Sorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -10185,8 +10010,7 @@ func BenchmarkInt64Sorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Int64Sorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -10769,8 +10593,7 @@ func BenchmarkUint64_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -10797,8 +10620,7 @@ func BenchmarkUint64_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Uint64
 				decoded.DecodeMsg(reader)
@@ -10818,8 +10640,7 @@ func BenchmarkUint64_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -10842,8 +10663,7 @@ func BenchmarkUint64_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint64
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -10865,8 +10685,7 @@ func BenchmarkUint64_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -10884,8 +10703,7 @@ func BenchmarkUint64_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Uint64FromSlice(slice)
 			}
 		})
@@ -10903,8 +10721,7 @@ func BenchmarkUint64_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -10927,8 +10744,7 @@ func BenchmarkUint64_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint64
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -10953,8 +10769,7 @@ func BenchmarkUint64Sorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -10981,8 +10796,7 @@ func BenchmarkUint64Sorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Uint64Sorted
 				decoded.DecodeMsg(reader)
@@ -11002,8 +10816,7 @@ func BenchmarkUint64Sorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -11026,8 +10839,7 @@ func BenchmarkUint64Sorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint64Sorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -11049,8 +10861,7 @@ func BenchmarkUint64Sorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -11068,8 +10879,7 @@ func BenchmarkUint64Sorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Uint64SortedFromSlice(slice)
 			}
 		})
@@ -11087,8 +10897,7 @@ func BenchmarkUint64Sorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -11111,8 +10920,7 @@ func BenchmarkUint64Sorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Uint64Sorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -11695,8 +11503,7 @@ func BenchmarkFloat64_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -11723,8 +11530,7 @@ func BenchmarkFloat64_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Float64
 				decoded.DecodeMsg(reader)
@@ -11744,8 +11550,7 @@ func BenchmarkFloat64_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -11768,8 +11573,7 @@ func BenchmarkFloat64_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Float64
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -11791,8 +11595,7 @@ func BenchmarkFloat64_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -11810,8 +11613,7 @@ func BenchmarkFloat64_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Float64FromSlice(slice)
 			}
 		})
@@ -11829,8 +11631,7 @@ func BenchmarkFloat64_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -11853,8 +11654,7 @@ func BenchmarkFloat64_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Float64
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -11879,8 +11679,7 @@ func BenchmarkFloat64Sorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -11907,8 +11706,7 @@ func BenchmarkFloat64Sorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Float64Sorted
 				decoded.DecodeMsg(reader)
@@ -11928,8 +11726,7 @@ func BenchmarkFloat64Sorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -11952,8 +11749,7 @@ func BenchmarkFloat64Sorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Float64Sorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -11975,8 +11771,7 @@ func BenchmarkFloat64Sorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -11994,8 +11789,7 @@ func BenchmarkFloat64Sorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Float64SortedFromSlice(slice)
 			}
 		})
@@ -12013,8 +11807,7 @@ func BenchmarkFloat64Sorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -12037,8 +11830,7 @@ func BenchmarkFloat64Sorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Float64Sorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -12621,8 +12413,7 @@ func BenchmarkFloat32_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -12649,8 +12440,7 @@ func BenchmarkFloat32_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Float32
 				decoded.DecodeMsg(reader)
@@ -12670,8 +12460,7 @@ func BenchmarkFloat32_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -12694,8 +12483,7 @@ func BenchmarkFloat32_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Float32
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -12717,8 +12505,7 @@ func BenchmarkFloat32_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -12736,8 +12523,7 @@ func BenchmarkFloat32_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Float32FromSlice(slice)
 			}
 		})
@@ -12755,8 +12541,7 @@ func BenchmarkFloat32_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -12779,8 +12564,7 @@ func BenchmarkFloat32_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Float32
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {
@@ -12805,8 +12589,7 @@ func BenchmarkFloat32Sorted_EncodeMsg(b *testing.B) {
 			writer := msgp.NewWriter(&buf)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				buf.Reset()
 				writer.Reset(&buf)
 				set.EncodeMsg(writer)
@@ -12833,8 +12616,7 @@ func BenchmarkFloat32Sorted_DecodeMsg(b *testing.B) {
 			encoded := buf.Bytes()
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				reader := msgp.NewReader(bytes.NewReader(encoded))
 				var decoded Float32Sorted
 				decoded.DecodeMsg(reader)
@@ -12854,8 +12636,7 @@ func BenchmarkFloat32Sorted_MarshalMsg(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := set.MarshalMsg(nil)
 				if err != nil {
 					b.Fatal(err)
@@ -12878,8 +12659,7 @@ func BenchmarkFloat32Sorted_UnmarshalMsg(b *testing.B) {
 			data, _ := set.MarshalMsg(nil)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Float32Sorted
 				_, err := decoded.UnmarshalMsg(data)
 				if err != nil {
@@ -12901,8 +12681,7 @@ func BenchmarkFloat32Sorted_AsSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = set.AsSlice()
 			}
 		})
@@ -12920,8 +12699,7 @@ func BenchmarkFloat32Sorted_FromSlice(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_ = Float32SortedFromSlice(slice)
 			}
 		})
@@ -12939,8 +12717,7 @@ func BenchmarkFloat32Sorted_MarshalJSON(b *testing.B) {
 			}
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				_, err := json.Marshal(set)
 				if err != nil {
 					b.Fatal(err)
@@ -12963,8 +12740,7 @@ func BenchmarkFloat32Sorted_UnmarshalJSON(b *testing.B) {
 			data, _ := json.Marshal(set)
 
 			b.ReportAllocs()
-			b.ResetTimer()
-			for i := 0; i < b.N; i++ {
+			for b.Loop() {
 				var decoded Float32Sorted
 				err := json.Unmarshal(data, &decoded)
 				if err != nil {

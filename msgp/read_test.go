@@ -248,8 +248,7 @@ func BenchmarkReadMapHeader(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(int64(len(data) / len(sizes)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		rd.ReadMapHeader()
 	}
 }
@@ -298,8 +297,7 @@ func BenchmarkReadArrayHeader(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.ReportAllocs()
 	b.SetBytes(int64(len(data) / len(sizes)))
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		rd.ReadArrayHeader()
 	}
 }
@@ -322,8 +320,7 @@ func BenchmarkReadNil(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.ReportAllocs()
 	b.SetBytes(1)
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		err := rd.ReadNil()
 		if err != nil {
 			b.Fatal(err)
@@ -369,8 +366,7 @@ func BenchmarkReadFloat64(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(9)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := rd.ReadFloat64()
 		if err != nil {
 			b.Fatal(err)
@@ -416,8 +412,7 @@ func BenchmarkReadFloat32(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(5)
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := rd.ReadFloat32()
 		if err != nil {
 			b.Fatal(err)
@@ -589,8 +584,7 @@ func BenchmarkReadInt64(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(int64(len(data) / len(is)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := rd.ReadInt64()
 		if err != nil {
 			b.Fatal(err)
@@ -607,8 +601,7 @@ func BenchmarkReadUintWithInt64(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(int64(len(data) / len(us)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := rd.ReadInt64()
 		if err != nil {
 			b.Fatal(err)
@@ -653,8 +646,7 @@ func BenchmarkReadUint64(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(int64(len(data) / len(us)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := rd.ReadUint64()
 		if err != nil {
 			b.Fatal(err)
@@ -671,8 +663,7 @@ func BenchmarkReadIntWithUint64(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(int64(len(data) / len(is)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := rd.ReadUint64()
 		if err != nil {
 			b.Fatal(err)
@@ -720,10 +711,9 @@ func benchBytes(size uint32, b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(int64(len(data)))
 	b.ReportAllocs()
-	b.ResetTimer()
 	var scratch []byte
 	var err error
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		scratch, err = rd.ReadBytes(scratch)
 		if err != nil {
 			b.Fatal(err)
@@ -785,8 +775,7 @@ func benchString(size uint32, b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(int64(len(data)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := rd.ReadString()
 		if err != nil {
 			b.Fatal(err)
@@ -801,10 +790,9 @@ func benchStringAsBytes(size uint32, b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(int64(len(data)))
 	b.ReportAllocs()
-	b.ResetTimer()
 	var scratch []byte
 	var err error
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		scratch, err = rd.ReadStringAsBytes(scratch)
 		if err != nil {
 			b.Fatal(err)
@@ -862,8 +850,7 @@ func BenchmarkReadComplex64(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(int64(len(data)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := rd.ReadComplex64()
 		if err != nil {
 			b.Fatal(err)
@@ -904,8 +891,7 @@ func BenchmarkReadComplex128(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(int64(len(data)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := rd.ReadComplex128()
 		if err != nil {
 			b.Fatal(err)
@@ -945,8 +931,7 @@ func BenchmarkReadTime(b *testing.B) {
 	rd := NewReader(NewEndlessReader(data, b))
 	b.SetBytes(int64(len(data)))
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := rd.ReadTime()
 		if err != nil {
 			b.Fatal(err)
@@ -1044,10 +1029,9 @@ func BenchmarkSkip(b *testing.B) {
 	bts := buf.Bytes()
 	b.SetBytes(int64(len(bts)))
 	b.ReportAllocs()
-	b.ResetTimer()
 
 	rd := NewReader(NewEndlessReader(bts, b))
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		err := rd.Skip()
 		if err != nil {
 			b.Fatal(err)

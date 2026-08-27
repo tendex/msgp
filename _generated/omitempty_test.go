@@ -215,9 +215,7 @@ func BenchmarkOmitEmpty10AllEmpty(b *testing.B) {
 	en := msgp.NewWriter(io.Discard)
 	var s OmitEmpty10
 
-	b.ResetTimer()
-
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		err := s.EncodeMsg(en)
 		if err != nil {
 			b.Fatal(err)
@@ -239,9 +237,7 @@ func BenchmarkOmitEmpty10AllFull(b *testing.B) {
 	s.Field08 = "this is the value of field08"
 	s.Field09 = "this is the value of field09"
 
-	b.ResetTimer()
-
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		err := s.EncodeMsg(en)
 		if err != nil {
 			b.Fatal(err)
@@ -253,9 +249,7 @@ func BenchmarkNotOmitEmpty10AllEmpty(b *testing.B) {
 	en := msgp.NewWriter(io.Discard)
 	var s NotOmitEmpty10
 
-	b.ResetTimer()
-
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		err := s.EncodeMsg(en)
 		if err != nil {
 			b.Fatal(err)
@@ -277,9 +271,7 @@ func BenchmarkNotOmitEmpty10AllFull(b *testing.B) {
 	s.Field08 = "this is the value of field08"
 	s.Field09 = "this is the value of field09"
 
-	b.ResetTimer()
-
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		err := s.EncodeMsg(en)
 		if err != nil {
 			b.Fatal(err)

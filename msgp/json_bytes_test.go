@@ -134,9 +134,8 @@ func BenchmarkUnmarshalAsJSON(b *testing.B) {
 		b.Fatal(err)
 	}
 	b.SetBytes(int64(len(js.Bytes())))
-	b.ResetTimer()
 	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		js.Reset()
 		UnmarshalAsJSON(&js, bts)
 	}
