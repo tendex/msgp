@@ -69,10 +69,8 @@ var (
 )
 
 func BenchmarkWriteReadFile(b *testing.B) {
-	// let's not run out of disk space...
-	if b.N > 10000000 {
-		b.N = 10000000 //nolint:staticcheck // ignoring "SA3001: should not assign to b.N (staticcheck)" as this should not usually happen.
-	}
+	// fixed dataset size, so disk usage doesn't grow with the iteration count
+	const numBlobs = 10000
 
 	fname := "bench-tmpfile"
 	f, err := os.Create(fname)
@@ -84,7 +82,7 @@ func BenchmarkWriteReadFile(b *testing.B) {
 		os.Remove(name)
 	}(f, fname)
 
-	data := make(Blobs, b.N)
+	data := make(Blobs, numBlobs)
 
 	for i := range data {
 		data[i].Name = blobstrings[prand.Intn(len(blobstrings))]
@@ -93,14 +91,15 @@ func BenchmarkWriteReadFile(b *testing.B) {
 		data[i].Bytes = blobbytes[prand.Intn(len(blobbytes))]
 	}
 
-	b.SetBytes(int64(data.Msgsize() / b.N))
-	b.ResetTimer()
-	err = msgp.WriteFile(data, f)
-	if err != nil {
-		b.Fatal(err)
-	}
-	err = msgp.ReadFile(&data, f)
-	if err != nil {
-		b.Fatal(err)
+	b.SetBytes(int64(data.Msgsize()))
+	for b.Loop() {
+		err = msgp.WriteFile(data, f)
+		if err != nil {
+			b.Fatal(err)
+		}
+		err = msgp.ReadFile(&data, f)
+		if err != nil {
+			b.Fatal(err)
+		}
 	}
 }
